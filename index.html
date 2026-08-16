@@ -1,0 +1,3200 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>Denner & Nágila ❤️</title>
+
+  <style>
+
+    /* =====================================================
+       CONFIGURAÇÕES GERAIS
+    ===================================================== */
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      min-height: 100vh;
+
+      font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+      background:
+        radial-gradient(
+          circle at top left,
+          rgba(255, 196, 210, 0.55),
+          transparent 35%
+        ),
+        radial-gradient(
+          circle at bottom right,
+          rgba(125, 35, 60, 0.12),
+          transparent 35%
+        ),
+        #fff8f9;
+
+      color: #31272a;
+
+      overflow-x: hidden;
+
+      position: relative;
+    }
+
+
+    /* =====================================================
+       FUNDO DE CORAÇÕES
+    ===================================================== */
+
+    .hearts-background {
+      position: fixed;
+
+      inset: 0;
+
+      overflow: hidden;
+
+      pointer-events: none;
+
+      z-index: 0;
+    }
+
+    .neon-heart {
+      position: absolute;
+
+      top: -80px;
+
+      color: #ff1744;
+
+      font-size: 28px;
+
+      filter:
+        drop-shadow(0 0 4px currentColor)
+        drop-shadow(0 0 10px currentColor)
+        drop-shadow(0 0 20px currentColor);
+
+      animation:
+        heartFall linear forwards,
+        heartGlow 2s ease-in-out infinite alternate;
+    }
+
+
+    @keyframes heartFall {
+
+      0% {
+        transform:
+          translateY(-80px)
+          rotate(0deg)
+          scale(0.8);
+
+        opacity: 0;
+      }
+
+      10% {
+        opacity: 0.55;
+      }
+
+      80% {
+        opacity: 0.40;
+      }
+
+      100% {
+        transform:
+          translateY(115vh)
+          rotate(360deg)
+          scale(1.1);
+
+        opacity: 0;
+      }
+    }
+
+
+    @keyframes heartGlow {
+
+      from {
+        filter:
+          drop-shadow(0 0 3px currentColor)
+          drop-shadow(0 0 7px currentColor);
+      }
+
+      to {
+        filter:
+          drop-shadow(0 0 7px currentColor)
+          drop-shadow(0 0 15px currentColor)
+          drop-shadow(0 0 28px currentColor);
+      }
+    }
+
+
+    /* =====================================================
+       CONTEÚDO PRINCIPAL
+    ===================================================== */
+
+    .hero {
+      min-height: 100vh;
+
+      display: flex;
+
+      align-items: center;
+      justify-content: center;
+
+      padding:
+        60px
+        60px
+        155px;
+
+      position: relative;
+
+      z-index: 1;
+    }
+
+
+    .container {
+      width: 100%;
+
+      max-width: 1180px;
+
+      display: grid;
+
+      grid-template-columns:
+        1fr 1fr;
+
+      gap: 80px;
+
+      align-items: center;
+    }
+
+
+    /* =====================================================
+       FOTO
+    ===================================================== */
+
+    .photo-area {
+      position: relative;
+
+      display: flex;
+
+      justify-content: center;
+    }
+
+
+    .photo-frame {
+      width: 430px;
+      height: 540px;
+
+      border-radius: 30px;
+
+      overflow: hidden;
+
+      position: relative;
+
+      background:
+        linear-gradient(
+          145deg,
+          #f2d9df,
+          #ffffff
+        );
+
+      box-shadow:
+        0 30px 80px
+        rgba(91, 34, 50, 0.18);
+    }
+
+
+    .photo-frame::after {
+      content: "";
+
+      position: absolute;
+
+      inset: 0;
+
+      pointer-events: none;
+
+      box-shadow:
+        inset 0 0 0 1px
+        rgba(255, 255, 255, 0.45);
+
+      border-radius: 30px;
+    }
+
+
+    .photo-frame img {
+      width: 100%;
+      height: 100%;
+
+      display: block;
+
+      object-fit: cover;
+
+      object-position: center;
+    }
+
+
+    /* =====================================================
+       CORAÇÃO DA FOTO
+    ===================================================== */
+
+    .floating-heart {
+      position: absolute;
+
+      width: 95px;
+      height: 95px;
+
+      right: 0;
+      bottom: 50px;
+
+      border-radius: 50%;
+
+      background:
+        linear-gradient(
+          145deg,
+          #a02c50,
+          #761d3b
+        );
+
+      color: white;
+
+      display: flex;
+
+      align-items: center;
+      justify-content: center;
+
+      font-size: 38px;
+
+      box-shadow:
+        0 20px 45px
+        rgba(90, 27, 48, 0.28);
+
+      animation:
+        float 3s
+        ease-in-out
+        infinite;
+
+      z-index: 2;
+    }
+
+
+    @keyframes float {
+
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(-12px);
+      }
+    }
+
+
+    /* =====================================================
+       TEXTO
+    ===================================================== */
+
+    .content {
+      max-width: 560px;
+    }
+
+
+    .eyebrow {
+      margin-bottom: 20px;
+
+      font-size: 14px;
+
+      font-weight: bold;
+
+      letter-spacing: 4px;
+
+      text-transform: uppercase;
+
+      color: #a7526d;
+    }
+
+
+    h1 {
+      margin-bottom: 24px;
+
+      font-size: 64px;
+
+      line-height: 1.05;
+
+      font-weight: 700;
+    }
+
+
+    h1 span {
+      color: #9d3154;
+    }
+
+
+    .subtitle {
+      max-width: 500px;
+
+      margin-bottom: 35px;
+
+      font-size: 21px;
+
+      line-height: 1.7;
+
+      color: #65565b;
+    }
+
+
+    /* =====================================================
+       BOTÃO COMEÇAR
+    ===================================================== */
+
+    .start-button {
+      border: none;
+
+      padding:
+        18px 34px;
+
+      border-radius: 999px;
+
+      background:
+        linear-gradient(
+          145deg,
+          #9c3154,
+          #7f1f40
+        );
+
+      color: white;
+
+      font-size: 17px;
+
+      font-weight: bold;
+
+      cursor: pointer;
+
+      transition:
+        transform 0.25s,
+        background 0.25s,
+        box-shadow 0.25s;
+
+      box-shadow:
+        0 14px 30px
+        rgba(146, 43, 75, 0.28);
+    }
+
+
+    .start-button:hover {
+      transform:
+        translateY(-3px);
+
+      box-shadow:
+        0 18px 36px
+        rgba(146, 43, 75, 0.35);
+    }
+
+
+    .start-button:active {
+      transform:
+        scale(0.97);
+    }
+
+
+    /* =====================================================
+       FRASE
+    ===================================================== */
+
+    .verse {
+      margin-top: 40px;
+
+      font-family:
+        Georgia,
+        serif;
+
+      font-style: italic;
+
+      font-size: 15px;
+
+      color: #8a747b;
+    }
+
+
+    /* =====================================================
+       ASSINATURA
+    ===================================================== */
+
+    .signature {
+      position: fixed;
+
+      right: 40px;
+
+      bottom: 125px;
+
+      z-index: 5;
+
+      font-family:
+        Georgia,
+        serif;
+
+      font-size: 16px;
+
+      color: #b08492;
+    }
+
+
+    /* =====================================================
+       PLAYER ROMÂNTICO
+    ===================================================== */
+
+    .music-bar {
+      position: fixed;
+
+      left: 50%;
+
+      bottom: 22px;
+
+      transform:
+        translateX(-50%);
+
+      width:
+        calc(100% - 60px);
+
+      max-width: 760px;
+
+      min-height: 82px;
+
+      padding:
+        13px 18px;
+
+      display: flex;
+
+      align-items: center;
+
+      gap: 16px;
+
+      z-index: 20;
+
+      border:
+        1px solid
+        rgba(
+          255,
+          255,
+          255,
+          0.72
+        );
+
+      border-radius: 24px;
+
+      background:
+        rgba(
+          255,
+          245,
+          248,
+          0.86
+        );
+
+      backdrop-filter:
+        blur(18px);
+
+      -webkit-backdrop-filter:
+        blur(18px);
+
+      box-shadow:
+        0 18px 60px
+        rgba(
+          109,
+          30,
+          55,
+          0.18
+        ),
+        inset
+        0 1px 0
+        rgba(
+          255,
+          255,
+          255,
+          0.8
+        );
+
+      transition:
+        box-shadow 0.3s,
+        background 0.3s;
+    }
+
+
+    .music-bar.playing {
+      background:
+        rgba(
+          255,
+          239,
+          244,
+          0.92
+        );
+
+      box-shadow:
+        0 20px 70px
+        rgba(
+          135,
+          26,
+          63,
+          0.25
+        ),
+        inset
+        0 1px 0
+        rgba(
+          255,
+          255,
+          255,
+          0.85
+        );
+    }
+
+
+    /* =====================================================
+       ÍCONE DA MÚSICA
+    ===================================================== */
+
+    .music-icon {
+      width: 52px;
+      height: 52px;
+
+      flex-shrink: 0;
+
+      display: flex;
+
+      align-items: center;
+      justify-content: center;
+
+      border-radius: 16px;
+
+      font-family:
+        Georgia,
+        serif;
+
+      font-size: 26px;
+
+      color: white;
+
+      background:
+        linear-gradient(
+          145deg,
+          #b5224d,
+          #70162f
+        );
+
+      box-shadow:
+        0 8px 22px
+        rgba(
+          140,
+          28,
+          65,
+          0.32
+        );
+
+      transition:
+        transform 0.4s;
+    }
+
+
+    .music-bar.playing .music-icon {
+      animation:
+        musicIconPulse
+        2s
+        ease-in-out
+        infinite;
+    }
+
+
+    @keyframes musicIconPulse {
+
+      0%,
+      100% {
+        transform:
+          scale(1);
+      }
+
+      50% {
+        transform:
+          scale(1.06);
+      }
+    }
+
+
+    /* =====================================================
+       INFORMAÇÕES DA MÚSICA
+    ===================================================== */
+
+    .music-info {
+      display: flex;
+
+      flex-direction: column;
+
+      flex: 1;
+
+      min-width: 0;
+    }
+
+
+    .music-label {
+      margin-bottom: 2px;
+
+      font-size: 9px;
+
+      font-weight: bold;
+
+      letter-spacing: 2px;
+
+      color: #b44b6a;
+    }
+
+
+    .music-info strong {
+      font-size: 15px;
+
+      color: #452d35;
+
+      white-space: nowrap;
+
+      overflow: hidden;
+
+      text-overflow: ellipsis;
+    }
+
+
+    .music-subtitle {
+      margin-top: 3px;
+
+      font-family:
+        Georgia,
+        serif;
+
+      font-size: 12px;
+
+      font-style: italic;
+
+      color: #9b7c86;
+    }
+
+
+    /* =====================================================
+       CORAÇÃO DO PLAYER
+    ===================================================== */
+
+    .music-heart {
+      color: #c52651;
+
+      font-size: 20px;
+
+      animation:
+        musicHeartBeat
+        1.5s
+        ease-in-out
+        infinite;
+    }
+
+
+    @keyframes musicHeartBeat {
+
+      0%,
+      100% {
+        transform:
+          scale(1);
+      }
+
+      15% {
+        transform:
+          scale(1.18);
+      }
+
+      30% {
+        transform:
+          scale(1);
+      }
+
+      45% {
+        transform:
+          scale(1.12);
+      }
+
+      60% {
+        transform:
+          scale(1);
+      }
+    }
+
+
+    /* =====================================================
+       BARRINHAS DA MÚSICA
+    ===================================================== */
+
+    .music-waves {
+      height: 24px;
+
+      display: flex;
+
+      align-items: center;
+
+      gap: 3px;
+
+      opacity: 0.22;
+
+      transition:
+        opacity 0.3s;
+    }
+
+
+    .music-waves.playing {
+      opacity: 1;
+    }
+
+
+    .music-waves span {
+      width: 3px;
+
+      height: 6px;
+
+      border-radius: 10px;
+
+      background:
+        #b02e55;
+    }
+
+
+    .music-waves.playing span {
+      animation:
+        musicWave
+        0.8s
+        ease-in-out
+        infinite alternate;
+    }
+
+
+    .music-waves span:nth-child(2) {
+      animation-delay:
+        0.20s;
+    }
+
+
+    .music-waves span:nth-child(3) {
+      animation-delay:
+        0.40s;
+    }
+
+
+    .music-waves span:nth-child(4) {
+      animation-delay:
+        0.10s;
+    }
+
+
+    @keyframes musicWave {
+
+      from {
+        height: 5px;
+      }
+
+      to {
+        height: 23px;
+      }
+    }
+
+
+    /* =====================================================
+       BOTÃO PLAY / PAUSE
+    ===================================================== */
+
+    .music-button {
+      width: 48px;
+      height: 48px;
+
+      flex-shrink: 0;
+
+      border: none;
+
+      border-radius: 50%;
+
+      display: flex;
+
+      align-items: center;
+      justify-content: center;
+
+      background:
+        linear-gradient(
+          145deg,
+          #9c2448,
+          #751932
+        );
+
+      color: white;
+
+      font-size: 16px;
+
+      cursor: pointer;
+
+      box-shadow:
+        0 8px 22px
+        rgba(
+          117,
+          25,
+          50,
+          0.28
+        );
+
+      transition:
+        transform 0.2s,
+        box-shadow 0.2s,
+        opacity 0.2s;
+    }
+
+
+    .music-button:hover {
+      transform:
+        scale(1.08);
+
+      box-shadow:
+        0 11px 30px
+        rgba(
+          117,
+          25,
+          50,
+          0.38
+        );
+    }
+
+
+    .music-button:active {
+      transform:
+        scale(0.94);
+    }
+
+
+    .music-button:disabled {
+      cursor: wait;
+
+      opacity: 0.65;
+    }
+
+
+    /* =====================================================
+       PLAYER REAL DO YOUTUBE
+
+       Ele precisa existir com tamanho suficiente para o
+       YouTube, mas ficará fora da área visível da página.
+    ===================================================== */
+
+    #youtube-player-container {
+      position: fixed;
+
+      width: 200px;
+      height: 200px;
+
+      left: -300px;
+      bottom: -300px;
+
+      overflow: hidden;
+
+      pointer-events: none;
+
+      opacity: 0;
+    }
+
+
+    #youtubePlayer {
+      width: 200px;
+      height: 200px;
+    }
+
+
+    /* =====================================================
+       RESPONSIVO
+    ===================================================== */
+
+    @media (max-width: 900px) {
+
+      .hero {
+        padding:
+          40px
+          20px
+          150px;
+      }
+
+
+      .container {
+        grid-template-columns:
+          1fr;
+
+        gap: 45px;
+
+        text-align: center;
+      }
+
+
+      .content {
+        margin:
+          0 auto;
+      }
+
+
+      .photo-frame {
+        width:
+          min(
+            430px,
+            90vw
+          );
+
+        height:
+          min(
+            540px,
+            112vw
+          );
+      }
+
+
+      h1 {
+        font-size: 48px;
+      }
+
+
+      .subtitle {
+        margin-left:
+          auto;
+
+        margin-right:
+          auto;
+      }
+
+
+      .signature {
+        display: none;
+      }
+
+
+      .music-bar {
+        width:
+          calc(
+            100% - 24px
+          );
+
+        bottom: 12px;
+
+        min-height: 72px;
+
+        padding:
+          10px 12px;
+
+        border-radius: 20px;
+
+        gap: 10px;
+      }
+
+
+      .music-icon {
+        width: 44px;
+        height: 44px;
+
+        font-size: 22px;
+      }
+
+
+      .music-button {
+        width: 44px;
+        height: 44px;
+      }
+
+
+      .music-heart {
+        display: none;
+      }
+
+    }
+/* =====================================================
+   CONTROLES DA PLAYLIST
+===================================================== */
+
+.music-controls {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.mini-music-button {
+  width: 36px;
+  height: 36px;
+
+  border: none;
+  border-radius: 50%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background:
+    rgba(139, 35, 68, 0.10);
+
+  color: #842746;
+
+  font-size: 22px;
+
+  cursor: pointer;
+
+  transition:
+    transform 0.2s,
+    background 0.2s;
+}
+
+.mini-music-button:hover {
+  transform: scale(1.08);
+
+  background:
+    rgba(139, 35, 68, 0.18);
+}
+
+.playlist-button {
+  font-size: 18px;
+}
+
+.add-music-button {
+  background:
+    #8f2949;
+
+  color: white;
+
+  font-size: 22px;
+
+  box-shadow:
+    0 6px 15px
+    rgba(143, 41, 73, 0.25);
+}
+
+
+/* =====================================================
+   PAINEL DA PLAYLIST
+===================================================== */
+
+.playlist-panel {
+  position: fixed;
+
+  right: 30px;
+  bottom: 125px;
+
+  width: 390px;
+  max-height: 570px;
+
+  padding: 25px;
+
+  background:
+    rgba(255, 248, 250, 0.96);
+
+  backdrop-filter: blur(24px);
+
+  border:
+    1px solid
+    rgba(255,255,255,0.8);
+
+  border-radius: 28px;
+
+  box-shadow:
+    0 30px 80px
+    rgba(90, 27, 48, 0.24);
+
+  z-index: 50;
+
+  opacity: 0;
+
+  pointer-events: none;
+
+  transform:
+    translateY(20px)
+    scale(0.97);
+
+  transition:
+    0.3s ease;
+}
+
+.playlist-panel.open {
+  opacity: 1;
+
+  pointer-events: auto;
+
+  transform:
+    translateY(0)
+    scale(1);
+}
+
+.playlist-header {
+  display: flex;
+
+  align-items: flex-start;
+  justify-content: space-between;
+
+  margin-bottom: 20px;
+}
+
+.playlist-small-title {
+  font-size: 9px;
+
+  letter-spacing: 2px;
+
+  font-weight: bold;
+
+  color: #a7526d;
+}
+
+.playlist-header h2 {
+  margin-top: 4px;
+
+  font-family: Georgia, serif;
+
+  font-size: 25px;
+
+  color: #432c34;
+}
+
+.close-panel {
+  border: none;
+
+  background: transparent;
+
+  color: #986879;
+
+  font-size: 28px;
+
+  cursor: pointer;
+}
+
+.playlist-list {
+  max-height: 390px;
+
+  overflow-y: auto;
+
+  padding-right: 5px;
+}
+
+.playlist-item {
+  display: flex;
+
+  align-items: center;
+
+  gap: 12px;
+
+  padding:
+    12px 8px;
+
+  border-bottom:
+    1px solid
+    rgba(145, 86, 106, 0.12);
+
+  cursor: pointer;
+
+  border-radius: 15px;
+
+  transition:
+    background 0.2s;
+}
+
+.playlist-item:hover {
+  background:
+    rgba(157, 49, 84, 0.06);
+}
+
+.playlist-item.active {
+  background:
+    rgba(157, 49, 84, 0.11);
+}
+
+.playlist-number {
+  width: 28px;
+
+  font-size: 12px;
+
+  color: #aa8290;
+
+  text-align: center;
+}
+
+.playlist-item-info {
+  flex: 1;
+
+  min-width: 0;
+}
+
+.playlist-item-info strong {
+  display: block;
+
+  font-size: 13px;
+
+  color: #49323a;
+
+  white-space: nowrap;
+
+  overflow: hidden;
+
+  text-overflow: ellipsis;
+}
+
+.playlist-item-info span {
+  display: block;
+
+  margin-top: 3px;
+
+  font-family: Georgia, serif;
+
+  font-size: 11px;
+
+  color: #a17483;
+}
+
+.playlist-playing-icon {
+  color: #b32c55;
+
+  font-size: 15px;
+}
+
+.delete-track {
+  border: none;
+
+  background: transparent;
+
+  color: #c89aa8;
+
+  font-size: 17px;
+
+  cursor: pointer;
+
+  padding: 5px;
+}
+
+.delete-track:hover {
+  color: #a51e46;
+}
+
+.playlist-empty {
+  padding:
+    40px 15px;
+
+  text-align: center;
+
+  font-family: Georgia, serif;
+
+  color: #aa8290;
+
+  font-style: italic;
+}
+
+.playlist-add-big {
+  width: 100%;
+
+  margin-top: 18px;
+
+  padding: 14px;
+
+  border: none;
+
+  border-radius: 15px;
+
+  background:
+    #922b4b;
+
+  color: white;
+
+  font-weight: bold;
+
+  cursor: pointer;
+}
+
+
+/* =====================================================
+   MODAL
+===================================================== */
+
+.modal-overlay {
+  position: fixed;
+
+  inset: 0;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  padding: 25px;
+
+  background:
+    rgba(54, 23, 33, 0.38);
+
+  backdrop-filter:
+    blur(8px);
+
+  z-index: 100;
+
+  opacity: 0;
+
+  pointer-events: none;
+
+  transition:
+    opacity 0.3s;
+}
+
+.modal-overlay.open {
+  opacity: 1;
+
+  pointer-events: auto;
+}
+
+.music-modal {
+  position: relative;
+
+  width: 100%;
+  max-width: 500px;
+
+  max-height: 90vh;
+
+  overflow-y: auto;
+
+  padding:
+    35px;
+
+  border-radius:
+    30px;
+
+  background:
+    #fff9fb;
+
+  box-shadow:
+    0 35px 100px
+    rgba(76, 21, 40, 0.30);
+
+  transform:
+    translateY(20px)
+    scale(0.97);
+
+  transition:
+    transform 0.3s;
+}
+
+.modal-overlay.open
+.music-modal {
+  transform:
+    translateY(0)
+    scale(1);
+}
+
+.modal-close {
+  position: absolute;
+
+  right: 20px;
+  top: 15px;
+
+  border: none;
+
+  background: transparent;
+
+  color: #aa7888;
+
+  font-size: 30px;
+
+  cursor: pointer;
+}
+
+.modal-heart {
+  margin-bottom: 12px;
+
+  font-size: 35px;
+}
+
+.modal-eyebrow {
+  font-size: 9px;
+
+  font-weight: bold;
+
+  letter-spacing: 3px;
+
+  color: #ad4867;
+}
+
+.music-modal h2 {
+  margin:
+    7px 0
+    8px;
+
+  font-family:
+    Georgia,
+    serif;
+
+  font-size: 30px;
+
+  color: #442b34;
+}
+
+.modal-description {
+  margin-bottom: 25px;
+
+  color: #876d76;
+
+  font-size: 14px;
+
+  line-height: 1.5;
+}
+
+.music-modal label {
+  display: block;
+
+  margin:
+    16px 0
+    7px;
+
+  font-size: 12px;
+
+  font-weight: bold;
+
+  color: #63414d;
+}
+
+.music-modal input,
+.music-modal textarea {
+  width: 100%;
+
+  padding:
+    14px 15px;
+
+  border:
+    1px solid
+    #efd8df;
+
+  border-radius:
+    14px;
+
+  outline: none;
+
+  background:
+    white;
+
+  color:
+    #4e3540;
+
+  font-family:
+    inherit;
+
+  transition:
+    border 0.2s,
+    box-shadow 0.2s;
+}
+
+.music-modal input:focus,
+.music-modal textarea:focus {
+  border-color:
+    #bb6681;
+
+  box-shadow:
+    0 0 0 3px
+    rgba(187, 102, 129, 0.10);
+}
+
+.music-modal textarea {
+  height: 85px;
+
+  resize: none;
+}
+
+.person-selector {
+  display: grid;
+
+  grid-template-columns:
+    1fr 1fr;
+
+  gap: 10px;
+}
+
+.person-button {
+  padding: 12px;
+
+  border:
+    1px solid
+    #efd7df;
+
+  border-radius:
+    14px;
+
+  background:
+    white;
+
+  color:
+    #7f5563;
+
+  font-weight: bold;
+
+  cursor: pointer;
+}
+
+.person-button.active {
+  background:
+    #922b4b;
+
+  color:
+    white;
+
+  border-color:
+    #922b4b;
+}
+
+.save-music-button {
+  width: 100%;
+
+  margin-top: 24px;
+
+  padding: 16px;
+
+  border: none;
+
+  border-radius: 15px;
+
+  background:
+    linear-gradient(
+      145deg,
+      #a52d53,
+      #781e3c
+    );
+
+  color: white;
+
+  font-size: 14px;
+
+  font-weight: bold;
+
+  cursor: pointer;
+}
+
+.modal-error {
+  min-height: 18px;
+
+  margin-top: 10px;
+
+  color: #be294e;
+
+  font-size: 12px;
+}
+
+    @media (max-width: 520px) {
+
+      .music-waves {
+        display: none;
+      }
+
+
+      .music-info strong {
+        font-size: 13px;
+      }
+
+
+      .music-subtitle {
+        font-size: 10px;
+      }
+
+    }
+
+  </style>
+
+</head>
+
+
+<body>
+
+
+  <!-- ==================================================
+       FUNDO DE CORAÇÕES
+  =================================================== -->
+
+  <div
+    class="hearts-background"
+    id="heartsBackground">
+  </div>
+
+
+
+  <!-- ==================================================
+       PÁGINA INICIAL
+  =================================================== -->
+
+  <section class="hero">
+
+    <div class="container">
+
+
+      <!-- FOTO -->
+
+      <div class="photo-area">
+
+        <div class="photo-frame">
+
+          <img
+            src="imagens/1.webp"
+            alt="Denner e Nágila"
+          >
+
+        </div>
+
+
+        <div class="floating-heart">
+          ❤️
+        </div>
+
+      </div>
+
+
+
+      <!-- TEXTO -->
+
+      <div class="content">
+
+
+        <div class="eyebrow">
+
+          Uma coisinha só nossa
+
+        </div>
+
+
+        <h1>
+
+          Oi,
+
+          <span>
+            futura esposa...
+          </span>
+
+        </h1>
+
+
+        <p class="subtitle">
+
+          Eu poderia simplesmente mandar uma mensagem.
+          Mas achei mais interessante transformar isso
+          em uma pequena experiência só para nós dois. ❤️
+
+        </p>
+
+
+        <button
+          class="start-button"
+          onclick="comecar()">
+
+          Começar →
+
+        </button>
+
+
+        <p class="verse">
+
+          “Uma história que Deus ainda está escrevendo.”
+
+        </p>
+
+
+      </div>
+
+
+    </div>
+
+  </section>
+
+
+
+  <!-- ==================================================
+       ASSINATURA
+  =================================================== -->
+
+  <div class="signature">
+
+    Denner & Nágila
+
+  </div>
+
+
+
+  <!-- ==================================================
+     PLAYER / PLAYLIST DO CASAL
+=================================================== -->
+
+<div
+  class="music-bar"
+  id="musicBar"
+>
+
+  <div class="music-icon">
+    ♫
+  </div>
+
+  <div class="music-info">
+
+    <span class="music-label">
+      NOSSA PLAYLIST ❤️
+    </span>
+
+    <strong id="musicTitle">
+      Adicione nossa primeira música
+    </strong>
+
+    <span
+      class="music-subtitle"
+      id="musicSubtitle"
+    >
+      Uma trilha sonora para a nossa história
+    </span>
+
+  </div>
+
+  <div
+    class="music-waves"
+    id="musicWaves"
+  >
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+
+  <div class="music-controls">
+
+    <button
+      class="mini-music-button"
+      onclick="previousTrack()"
+      title="Anterior"
+    >
+      ‹
+    </button>
+
+    <button
+      class="music-button"
+      id="musicButton"
+      onclick="toggleMusic()"
+      aria-label="Tocar música"
+    >
+      ▶
+    </button>
+
+    <button
+      class="mini-music-button"
+      onclick="nextTrack()"
+      title="Próxima"
+    >
+      ›
+    </button>
+
+    <button
+      class="mini-music-button playlist-button"
+      onclick="togglePlaylistPanel()"
+      title="Abrir playlist"
+    >
+      ☷
+    </button>
+
+    <button
+      class="mini-music-button add-music-button"
+      onclick="openAddMusicModal()"
+      title="Adicionar música"
+    >
+      +
+    </button>
+
+  </div>
+
+</div>
+
+
+<!-- ==================================================
+     PAINEL DA PLAYLIST
+=================================================== -->
+
+<div
+  class="playlist-panel"
+  id="playlistPanel"
+>
+
+  <div class="playlist-header">
+
+    <div>
+      <span class="playlist-small-title">
+        DENNER & NÁGILA
+      </span>
+
+      <h2>
+        Nossa playlist ❤️
+      </h2>
+    </div>
+
+    <button
+      class="close-panel"
+      onclick="togglePlaylistPanel()"
+    >
+      ×
+    </button>
+
+  </div>
+
+  <div
+    class="playlist-list"
+    id="playlistList"
+  >
+  </div>
+
+  <button
+    class="playlist-add-big"
+    onclick="openAddMusicModal()"
+  >
+    + Adicionar música
+  </button>
+
+</div>
+
+
+<!-- ==================================================
+     MODAL PARA ADICIONAR MÚSICA
+=================================================== -->
+
+<div
+  class="modal-overlay"
+  id="musicModal"
+>
+
+  <div class="music-modal">
+
+    <button
+      class="modal-close"
+      onclick="closeAddMusicModal()"
+    >
+      ×
+    </button>
+
+    <div class="modal-heart">
+      ❤️
+    </div>
+
+    <span class="modal-eyebrow">
+      NOSSA TRILHA SONORA
+    </span>
+
+    <h2>
+      Adicionar uma música
+    </h2>
+
+    <p class="modal-description">
+      Escolha uma música que faça você lembrar da nossa história.
+    </p>
+
+
+    <label>
+      Link do YouTube ou YouTube Music
+    </label>
+
+    <input
+      type="text"
+      id="musicLink"
+      placeholder="Cole o link aqui..."
+    >
+
+
+    <label>
+      Nome da música
+    </label>
+
+    <input
+      type="text"
+      id="musicName"
+      placeholder="Ex.: Nossa música ❤️"
+    >
+
+
+    <label>
+      Quem está adicionando?
+    </label>
+
+    <div class="person-selector">
+
+      <button
+        type="button"
+        class="person-button active"
+        data-person="Denner"
+        onclick="selectPerson(this)"
+      >
+        Denner
+      </button>
+
+      <button
+        type="button"
+        class="person-button"
+        data-person="Nágila"
+        onclick="selectPerson(this)"
+      >
+        Nágila
+      </button>
+
+    </div>
+
+
+    <label>
+      Por que escolheu essa música?
+    </label>
+
+    <textarea
+      id="musicMessage"
+      placeholder="Essa música me lembra você porque..."
+    ></textarea>
+
+
+    <div
+      class="modal-error"
+      id="modalError"
+    >
+    </div>
+
+
+    <button
+      class="save-music-button"
+      onclick="addMusic()"
+    >
+      Adicionar à nossa playlist ❤️
+    </button>
+
+  </div>
+
+</div>
+
+
+<!-- ==================================================
+     PLAYER REAL DO YOUTUBE
+=================================================== -->
+
+<div id="youtube-player-container">
+  <div id="youtubePlayer"></div>
+</div>
+
+<script src="https://www.youtube.com/iframe_api"></script>
+  <!-- ==================================================
+       JAVASCRIPT
+  =================================================== -->
+
+  <script>
+
+
+    /* ==================================================
+       CORAÇÕES
+    ================================================== */
+
+    const heartsBackground =
+      document.getElementById(
+        "heartsBackground"
+      );
+
+
+    const heartColors = [
+
+      "#ff1744",
+      "#ff0033",
+      "#ff355e",
+      "#e60026",
+      "#ff4d6d",
+      "#c9184a",
+      "#ff758f",
+      "#b00020",
+      "#ff002b"
+
+    ];
+
+
+    const heartTypes = [
+
+      "♡",
+      "♥",
+      "❤"
+
+    ];
+
+
+
+    function createHeart() {
+
+      const heart =
+        document.createElement(
+          "div"
+        );
+
+
+      heart.classList.add(
+        "neon-heart"
+      );
+
+
+      /* FORMATO */
+
+      heart.textContent =
+        heartTypes[
+          Math.floor(
+            Math.random()
+            *
+            heartTypes.length
+          )
+        ];
+
+
+      /* POSIÇÃO */
+
+      heart.style.left =
+        Math.random()
+        *
+        100
+        +
+        "vw";
+
+
+      /* TAMANHO */
+
+      const size =
+        Math.random()
+        *
+        35
+        +
+        15;
+
+
+      heart.style.fontSize =
+        size
+        +
+        "px";
+
+
+      /* COR */
+
+      const color =
+        heartColors[
+          Math.floor(
+            Math.random()
+            *
+            heartColors.length
+          )
+        ];
+
+
+      heart.style.color =
+        color;
+
+
+      /* VELOCIDADE */
+
+      const duration =
+        Math.random()
+        *
+        6
+        +
+        7;
+
+
+      const glowDuration =
+        Math.random()
+        *
+        2
+        +
+        1.5;
+
+
+      heart.style.animationDuration =
+        duration
+        +
+        "s, "
+        +
+        glowDuration
+        +
+        "s";
+
+
+      heartsBackground.appendChild(
+        heart
+      );
+
+
+      setTimeout(
+        () => {
+
+          heart.remove();
+
+        },
+
+        duration * 1000
+      );
+
+    }
+
+
+
+    /* CORAÇÕES QUE JÁ APARECEM
+       AO ENTRAR NA PÁGINA */
+
+    for (
+      let i = 0;
+      i < 12;
+      i++
+    ) {
+
+      setTimeout(
+        createHeart,
+        i * 150
+      );
+
+    }
+
+
+
+    /* CONTINUA CRIANDO CORAÇÕES */
+
+    setInterval(
+      createHeart,
+      450
+    );
+
+
+
+    /* ==================================================
+       BOTÃO COMEÇAR
+    ================================================== */
+
+    function comecar() {
+
+      alert(
+        "Calma, futura esposa 😂❤️ Isso é só o começo."
+      );
+
+    }
+
+
+
+   /* =====================================================
+   PLAYLIST DO CASAL
+===================================================== */
+
+const STORAGE_KEY =
+  "dennerNagilaPlaylist";
+
+
+let playlist = JSON.parse(
+  localStorage.getItem(
+    STORAGE_KEY
+  )
+) || [];
+
+
+let currentIndex = 0;
+
+let selectedPerson =
+  "Denner";
+
+let player = null;
+
+let playerReady = false;
+
+
+
+const musicButton =
+  document.getElementById(
+    "musicButton"
+  );
+
+const musicTitle =
+  document.getElementById(
+    "musicTitle"
+  );
+
+const musicSubtitle =
+  document.getElementById(
+    "musicSubtitle"
+  );
+
+const musicWaves =
+  document.getElementById(
+    "musicWaves"
+  );
+
+const musicBar =
+  document.getElementById(
+    "musicBar"
+  );
+
+const playlistPanel =
+  document.getElementById(
+    "playlistPanel"
+  );
+
+const playlistList =
+  document.getElementById(
+    "playlistList"
+  );
+
+const musicModal =
+  document.getElementById(
+    "musicModal"
+  );
+
+
+
+/* =====================================================
+   YOUTUBE API
+===================================================== */
+
+function onYouTubeIframeAPIReady() {
+
+  player =
+    new YT.Player(
+      "youtubePlayer",
+      {
+
+        width: 200,
+
+        height: 200,
+
+        videoId:
+          playlist.length
+          ? playlist[0].videoId
+          : "",
+
+        playerVars: {
+          playsinline: 1,
+          controls: 0
+        },
+
+        events: {
+
+          onReady:
+            onPlayerReady,
+
+          onStateChange:
+            onPlayerStateChange,
+
+          onError:
+            onPlayerError
+
+        }
+
+      }
+    );
+
+}
+
+
+
+function onPlayerReady() {
+
+  playerReady = true;
+
+  renderPlaylist();
+
+  updateMusicBar();
+
+}
+
+
+
+function onPlayerStateChange(
+  event
+) {
+
+  if (
+    event.data ===
+    YT.PlayerState.PLAYING
+  ) {
+
+    musicButton.textContent =
+      "❚❚";
+
+    musicWaves.classList.add(
+      "playing"
+    );
+
+    musicBar.classList.add(
+      "playing"
+    );
+
+  }
+
+
+  else if (
+    event.data ===
+    YT.PlayerState.PAUSED
+  ) {
+
+    setPausedInterface();
+
+  }
+
+
+  else if (
+    event.data ===
+    YT.PlayerState.ENDED
+  ) {
+
+    nextTrack(true);
+
+  }
+
+}
+
+
+
+function onPlayerError(
+  event
+) {
+
+  console.error(
+    "Erro do YouTube:",
+    event.data
+  );
+
+  musicTitle.textContent =
+    "Essa música não pôde ser reproduzida 🥺";
+
+}
+
+
+
+/* =====================================================
+   PLAY / PAUSE
+===================================================== */
+
+function toggleMusic() {
+
+  if (
+    !playerReady ||
+    !playlist.length
+  ) {
+
+    openAddMusicModal();
+
+    return;
+
+  }
+
+
+  const state =
+    player.getPlayerState();
+
+
+  if (
+    state ===
+    YT.PlayerState.PLAYING
+  ) {
+
+    player.pauseVideo();
+
+  }
+
+  else {
+
+    player.playVideo();
+
+  }
+
+}
+
+
+
+function setPausedInterface() {
+
+  musicButton.textContent =
+    "▶";
+
+  musicWaves.classList.remove(
+    "playing"
+  );
+
+  musicBar.classList.remove(
+    "playing"
+  );
+
+}
+
+
+
+/* =====================================================
+   MÚSICA ANTERIOR
+===================================================== */
+
+function previousTrack() {
+
+  if (
+    playlist.length === 0
+  ) {
+
+    return;
+
+  }
+
+
+  currentIndex--;
+
+  if (
+    currentIndex < 0
+  ) {
+
+    currentIndex =
+      playlist.length - 1;
+
+  }
+
+
+  loadCurrentTrack(true);
+
+}
+
+
+
+/* =====================================================
+   PRÓXIMA MÚSICA
+===================================================== */
+
+function nextTrack(
+  autoplay = true
+) {
+
+  if (
+    playlist.length === 0
+  ) {
+
+    return;
+
+  }
+
+
+  currentIndex++;
+
+  if (
+    currentIndex >=
+    playlist.length
+  ) {
+
+    currentIndex = 0;
+
+  }
+
+
+  loadCurrentTrack(
+    autoplay
+  );
+
+}
+
+
+
+/* =====================================================
+   CARREGAR MÚSICA
+===================================================== */
+
+function loadCurrentTrack(
+  autoplay = false
+) {
+
+  if (
+    !playlist.length
+  ) {
+
+    updateMusicBar();
+
+    return;
+
+  }
+
+
+  const track =
+    playlist[
+      currentIndex
+    ];
+
+
+  if (
+    playerReady &&
+    player
+  ) {
+
+    if (
+      autoplay
+    ) {
+
+      player.loadVideoById(
+        track.videoId
+      );
+
+    }
+
+    else {
+
+      player.cueVideoById(
+        track.videoId
+      );
+
+    }
+
+  }
+
+
+  updateMusicBar();
+
+  renderPlaylist();
+
+}
+
+
+
+/* =====================================================
+   ATUALIZA A BARRA
+===================================================== */
+
+function updateMusicBar() {
+
+  if (
+    playlist.length === 0
+  ) {
+
+    musicTitle.textContent =
+      "Adicione nossa primeira música ❤️";
+
+    musicSubtitle.textContent =
+      "Uma trilha sonora para a nossa história";
+
+    musicButton.textContent =
+      "+";
+
+    return;
+
+  }
+
+
+  const track =
+    playlist[
+      currentIndex
+    ];
+
+
+  musicTitle.textContent =
+    track.name;
+
+
+  musicSubtitle.textContent =
+    "Adicionada por "
+    +
+    track.addedBy
+    +
+    " ❤️";
+
+
+  if (
+    playerReady &&
+    player &&
+    player.getPlayerState() !==
+      YT.PlayerState.PLAYING
+  ) {
+
+    musicButton.textContent =
+      "▶";
+
+  }
+
+}
+
+
+
+/* =====================================================
+   ABRIR / FECHAR PLAYLIST
+===================================================== */
+
+function togglePlaylistPanel() {
+
+  playlistPanel.classList.toggle(
+    "open"
+  );
+
+}
+
+
+
+/* =====================================================
+   MODAL
+===================================================== */
+
+function openAddMusicModal() {
+
+  musicModal.classList.add(
+    "open"
+  );
+
+
+  document.getElementById(
+    "musicLink"
+  ).focus();
+
+}
+
+
+
+function closeAddMusicModal() {
+
+  musicModal.classList.remove(
+    "open"
+  );
+
+
+  document.getElementById(
+    "modalError"
+  ).textContent = "";
+
+}
+
+
+
+/* =====================================================
+   QUEM ADICIONOU
+===================================================== */
+
+function selectPerson(
+  button
+) {
+
+  selectedPerson =
+    button.dataset.person;
+
+
+  document
+    .querySelectorAll(
+      ".person-button"
+    )
+    .forEach(
+      item =>
+        item.classList.remove(
+          "active"
+        )
+    );
+
+
+  button.classList.add(
+    "active"
+  );
+
+}
+
+
+
+/* =====================================================
+   EXTRAIR ID DO YOUTUBE
+===================================================== */
+
+function extractYouTubeVideoId(
+  link
+) {
+
+  try {
+
+    const url =
+      new URL(
+        link.trim()
+      );
+
+
+    /*
+      youtu.be/VIDEO
+    */
+
+    if (
+      url.hostname.includes(
+        "youtu.be"
+      )
+    ) {
+
+      return url.pathname
+        .replace("/", "")
+        .split("?")[0];
+
+    }
+
+
+    /*
+      youtube.com/watch?v=VIDEO
+      music.youtube.com/watch?v=VIDEO
+    */
+
+    const videoParameter =
+      url.searchParams.get(
+        "v"
+      );
+
+
+    if (
+      videoParameter
+    ) {
+
+      return videoParameter;
+
+    }
+
+
+    /*
+      youtube.com/shorts/VIDEO
+      youtube.com/embed/VIDEO
+    */
+
+    const parts =
+      url.pathname
+        .split("/")
+        .filter(Boolean);
+
+
+    if (
+      parts[0] ===
+        "shorts"
+      ||
+      parts[0] ===
+        "embed"
+    ) {
+
+      return parts[1];
+
+    }
+
+
+    return null;
+
+  }
+
+  catch {
+
+    return null;
+
+  }
+
+}
+
+
+
+/* =====================================================
+   ADICIONAR MÚSICA
+===================================================== */
+
+function addMusic() {
+
+  const link =
+    document.getElementById(
+      "musicLink"
+    ).value.trim();
+
+
+  const name =
+    document.getElementById(
+      "musicName"
+    ).value.trim();
+
+
+  const message =
+    document.getElementById(
+      "musicMessage"
+    ).value.trim();
+
+
+  const error =
+    document.getElementById(
+      "modalError"
+    );
+
+
+  error.textContent = "";
+
+
+  const videoId =
+    extractYouTubeVideoId(
+      link
+    );
+
+
+  if (
+    !videoId
+  ) {
+
+    error.textContent =
+      "Cole um link válido do YouTube ou YouTube Music ❤️";
+
+    return;
+
+  }
+
+
+  const newTrack = {
+
+    id:
+      Date.now()
+      +
+      "-"
+      +
+      Math.random()
+        .toString(36)
+        .slice(2),
+
+    videoId:
+      videoId,
+
+    link:
+      link,
+
+    name:
+      name ||
+      "Nossa música ❤️",
+
+    addedBy:
+      selectedPerson,
+
+    message:
+      message,
+
+    createdAt:
+      Date.now()
+
+  };
+
+
+  const wasEmpty =
+    playlist.length === 0;
+
+
+  playlist.push(
+    newTrack
+  );
+
+
+  savePlaylist();
+
+
+  if (
+    wasEmpty
+  ) {
+
+    currentIndex = 0;
+
+    loadCurrentTrack(
+      false
+    );
+
+  }
+
+
+  renderPlaylist();
+
+  updateMusicBar();
+
+
+  clearMusicForm();
+
+  closeAddMusicModal();
+
+}
+
+
+
+/* =====================================================
+   LIMPAR FORMULÁRIO
+===================================================== */
+
+function clearMusicForm() {
+
+  document.getElementById(
+    "musicLink"
+  ).value = "";
+
+
+  document.getElementById(
+    "musicName"
+  ).value = "";
+
+
+  document.getElementById(
+    "musicMessage"
+  ).value = "";
+
+}
+
+
+
+/* =====================================================
+   SALVAR LOCALMENTE
+===================================================== */
+
+function savePlaylist() {
+
+  localStorage.setItem(
+    STORAGE_KEY,
+    JSON.stringify(
+      playlist
+    )
+  );
+
+}
+
+
+
+/* =====================================================
+   EXIBIR LISTA
+===================================================== */
+
+function renderPlaylist() {
+
+  playlistList.innerHTML =
+    "";
+
+
+  if (
+    playlist.length === 0
+  ) {
+
+    playlistList.innerHTML =
+      `
+        <div class="playlist-empty">
+          Nossa playlist ainda está vazia.<br>
+          Que tal escolher a primeira? ❤️
+        </div>
+      `;
+
+    return;
+
+  }
+
+
+  playlist.forEach(
+    (
+      track,
+      index
+    ) => {
+
+      const item =
+        document.createElement(
+          "div"
+        );
+
+
+      item.className =
+        "playlist-item"
+        +
+        (
+          index ===
+          currentIndex
+          ?
+          " active"
+          :
+          ""
+        );
+
+
+      item.innerHTML =
+        `
+          <div class="playlist-number">
+            ${
+              index ===
+              currentIndex
+              ?
+              "♫"
+              :
+              String(
+                index + 1
+              ).padStart(
+                2,
+                "0"
+              )
+            }
+          </div>
+
+          <div class="playlist-item-info">
+
+            <strong>
+              ${escapeHtml(track.name)}
+            </strong>
+
+            <span>
+              ${
+                escapeHtml(
+                  track.addedBy
+                )
+              } ❤️
+            </span>
+
+          </div>
+
+          <button
+            class="delete-track"
+            title="Excluir"
+          >
+            ×
+          </button>
+        `;
+
+
+      item.addEventListener(
+        "click",
+        () => {
+
+          selectTrack(
+            index
+          );
+
+        }
+      );
+
+
+      item
+        .querySelector(
+          ".delete-track"
+        )
+        .addEventListener(
+          "click",
+          event => {
+
+            event.stopPropagation();
+
+            deleteTrack(
+              index
+            );
+
+          }
+        );
+
+
+      playlistList.appendChild(
+        item
+      );
+
+    }
+  );
+
+}
+
+
+
+/* =====================================================
+   SELECIONAR MÚSICA
+===================================================== */
+
+function selectTrack(
+  index
+) {
+
+  currentIndex =
+    index;
+
+
+  loadCurrentTrack(
+    true
+  );
+
+}
+
+
+
+/* =====================================================
+   EXCLUIR MÚSICA
+===================================================== */
+
+function deleteTrack(
+  index
+) {
+
+  playlist.splice(
+    index,
+    1
+  );
+
+
+  if (
+    currentIndex >=
+    playlist.length
+  ) {
+
+    currentIndex =
+      Math.max(
+        0,
+        playlist.length - 1
+      );
+
+  }
+
+
+  savePlaylist();
+
+  renderPlaylist();
+
+
+  if (
+    playlist.length
+  ) {
+
+    loadCurrentTrack(
+      false
+    );
+
+  }
+
+  else {
+
+    if (
+      playerReady &&
+      player
+    ) {
+
+      player.stopVideo();
+
+    }
+
+
+    setPausedInterface();
+
+    updateMusicBar();
+
+  }
+
+}
+
+
+
+/* =====================================================
+   SEGURANÇA DO TEXTO
+===================================================== */
+
+function escapeHtml(
+  text
+) {
+
+  const div =
+    document.createElement(
+      "div"
+    );
+
+
+  div.textContent =
+    text;
+
+
+  return div.innerHTML;
+
+}
+
+
+
+/* =====================================================
+   INICIALIZA
+===================================================== */
+
+renderPlaylist();
+
+updateMusicBar();
+
+  </script>
+
+
+</body>
+
+</html>
