@@ -1980,7 +1980,45 @@
        JAVASCRIPT
   =================================================== -->
 
-  <script>
+  <script type="module">
+
+    /* ==================================================
+       FIREBASE / FIRESTORE
+    ================================================== */
+
+    import {
+      initializeApp
+    } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
+
+    import {
+      getFirestore,
+      collection,
+      addDoc,
+      deleteDoc,
+      doc,
+      query,
+      orderBy,
+      onSnapshot,
+      serverTimestamp
+    } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
+
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyDaV_CJxHMYk6AcDtyKdmE-VjEFsvUzSBc",
+      authDomain: "aplicativo-romantico.firebaseapp.com",
+      projectId: "aplicativo-romantico",
+      storageBucket: "aplicativo-romantico.firebasestorage.app",
+      messagingSenderId: "1028025397124",
+      appId: "1:1028025397124:web:484771a997c4dbb6f6f7d1",
+      measurementId: "G-GTY3W8NGBF"
+    };
+
+
+    const firebaseApp =
+      initializeApp(firebaseConfig);
+
+    const db =
+      getFirestore(firebaseApp);
 
 
     /* ==================================================
@@ -1994,7 +2032,6 @@
 
 
     const heartColors = [
-
       "#ff1744",
       "#ff0033",
       "#ff355e",
@@ -2004,18 +2041,14 @@
       "#ff758f",
       "#b00020",
       "#ff002b"
-
     ];
 
 
     const heartTypes = [
-
       "♡",
       "♥",
       "❤"
-
     ];
-
 
 
     function createHeart() {
@@ -2025,132 +2058,84 @@
           "div"
         );
 
-
       heart.classList.add(
         "neon-heart"
       );
 
-
-      /* FORMATO */
-
       heart.textContent =
         heartTypes[
           Math.floor(
-            Math.random()
-            *
+            Math.random() *
             heartTypes.length
           )
         ];
 
-
-      /* POSIÇÃO */
-
       heart.style.left =
-        Math.random()
-        *
-        100
-        +
+        Math.random() *
+        100 +
         "vw";
 
-
-      /* TAMANHO */
-
       const size =
-        Math.random()
-        *
-        35
-        +
+        Math.random() *
+        35 +
         15;
 
-
       heart.style.fontSize =
-        size
-        +
+        size +
         "px";
-
-
-      /* COR */
 
       const color =
         heartColors[
           Math.floor(
-            Math.random()
-            *
+            Math.random() *
             heartColors.length
           )
         ];
 
-
       heart.style.color =
         color;
 
-
-      /* VELOCIDADE */
-
       const duration =
-        Math.random()
-        *
-        6
-        +
+        Math.random() *
+        6 +
         7;
 
-
       const glowDuration =
-        Math.random()
-        *
-        2
-        +
+        Math.random() *
+        2 +
         1.5;
 
-
       heart.style.animationDuration =
-        duration
-        +
-        "s, "
-        +
-        glowDuration
-        +
+        duration +
+        "s, " +
+        glowDuration +
         "s";
-
 
       heartsBackground.appendChild(
         heart
       );
 
-
       setTimeout(
         () => {
-
           heart.remove();
-
         },
-
         duration * 1000
       );
 
     }
 
 
-
-    /* CORAÇÕES QUE JÁ APARECEM
-       AO ENTRAR NA PÁGINA */
-
     for (
       let i = 0;
       i < 12;
       i++
     ) {
-
       setTimeout(
         createHeart,
         i * 150
       );
-
     }
 
-
-
-    /* CONTINUA CRIANDO CORAÇÕES */
 
     setInterval(
       createHeart,
@@ -2158,1039 +2143,1339 @@
     );
 
 
-
     /* ==================================================
        BOTÃO COMEÇAR
     ================================================== */
 
     function comecar() {
-
       alert(
         "Calma, futura esposa 😂❤️ Isso é só o começo."
       );
-
     }
 
 
+    /* ==================================================
+       PLAYLIST DO CASAL
+       Agora sincronizada pelo FIRESTORE
+    ================================================== */
 
-   /* =====================================================
-   PLAYLIST DO CASAL
-===================================================== */
+    let playlist = [];
 
-const STORAGE_KEY =
-  "dennerNagilaPlaylist";
+    let currentIndex = 0;
 
+    let selectedPerson =
+      "Denner";
 
-let playlist = JSON.parse(
-  localStorage.getItem(
-    STORAGE_KEY
-  )
-) || [];
+    let player = null;
 
+    let playerReady = false;
 
-let currentIndex = 0;
-
-let selectedPerson =
-  "Denner";
-
-let player = null;
-
-let playerReady = false;
+    let loadedVideoId = null;
 
 
+    const musicButton =
+      document.getElementById(
+        "musicButton"
+      );
 
-const musicButton =
-  document.getElementById(
-    "musicButton"
-  );
+    const musicTitle =
+      document.getElementById(
+        "musicTitle"
+      );
 
-const musicTitle =
-  document.getElementById(
-    "musicTitle"
-  );
+    const musicSubtitle =
+      document.getElementById(
+        "musicSubtitle"
+      );
 
-const musicSubtitle =
-  document.getElementById(
-    "musicSubtitle"
-  );
+    const musicWaves =
+      document.getElementById(
+        "musicWaves"
+      );
 
-const musicWaves =
-  document.getElementById(
-    "musicWaves"
-  );
+    const musicBar =
+      document.getElementById(
+        "musicBar"
+      );
 
-const musicBar =
-  document.getElementById(
-    "musicBar"
-  );
+    const playlistPanel =
+      document.getElementById(
+        "playlistPanel"
+      );
 
-const playlistPanel =
-  document.getElementById(
-    "playlistPanel"
-  );
+    const playlistList =
+      document.getElementById(
+        "playlistList"
+      );
 
-const playlistList =
-  document.getElementById(
-    "playlistList"
-  );
-
-const musicModal =
-  document.getElementById(
-    "musicModal"
-  );
-
+    const musicModal =
+      document.getElementById(
+        "musicModal"
+      );
 
 
-/* =====================================================
-   YOUTUBE API
-===================================================== */
+    /* ==================================================
+       FIRESTORE EM TEMPO REAL
+    ================================================== */
 
-function onYouTubeIframeAPIReady() {
+    const playlistQuery =
+      query(
+        collection(
+          db,
+          "playlist"
+        ),
+        orderBy(
+          "createdAt",
+          "asc"
+        )
+      );
 
-  player =
-    new YT.Player(
-      "youtubePlayer",
-      {
 
-        width: 200,
+    onSnapshot(
+      playlistQuery,
 
-        height: 200,
+      snapshot => {
 
-        videoId:
+        const currentTrackId =
+          playlist[
+            currentIndex
+          ]?.id ?? null;
+
+        playlist =
+          snapshot.docs.map(
+            documentSnapshot => ({
+              id:
+                documentSnapshot.id,
+
+              ...documentSnapshot.data()
+            })
+          );
+
+
+        if (
+          currentTrackId &&
           playlist.length
-          ? playlist[0].videoId
-          : "",
+        ) {
 
-        playerVars: {
-          playsinline: 1,
-          controls: 0
-        },
+          const preservedIndex =
+            playlist.findIndex(
+              track =>
+                track.id ===
+                currentTrackId
+            );
 
-        events: {
+          if (
+            preservedIndex >= 0
+          ) {
+            currentIndex =
+              preservedIndex;
+          }
 
-          onReady:
-            onPlayerReady,
+        }
 
-          onStateChange:
-            onPlayerStateChange,
 
-          onError:
-            onPlayerError
+        if (
+          currentIndex >=
+          playlist.length
+        ) {
+          currentIndex =
+            Math.max(
+              0,
+              playlist.length - 1
+            );
+        }
 
+
+        renderPlaylist();
+
+        updateMusicBar();
+
+
+        if (
+          playlist.length === 0
+        ) {
+
+          loadedVideoId = null;
+
+          if (
+            playerReady &&
+            player
+          ) {
+            player.stopVideo();
+          }
+
+          setPausedInterface();
+
+          return;
+        }
+
+
+        /*
+          Se o player já estiver pronto e a faixa atual
+          ainda não estiver carregada, deixa a música
+          preparada sem iniciar automaticamente.
+        */
+
+        const track =
+          playlist[
+            currentIndex
+          ];
+
+        if (
+          playerReady &&
+          player &&
+          track &&
+          loadedVideoId !==
+            track.videoId
+        ) {
+
+          player.cueVideoById(
+            track.videoId
+          );
+
+          loadedVideoId =
+            track.videoId;
+
+        }
+
+      },
+
+      error => {
+
+        console.error(
+          "Erro ao sincronizar a playlist:",
+          error
+        );
+
+        musicTitle.textContent =
+          "Não consegui carregar nossa playlist 🥺";
+
+        if (
+          error?.code ===
+          "permission-denied"
+        ) {
+          musicSubtitle.textContent =
+            "Confira as regras do Firestore.";
+        }
+
+        else {
+          musicSubtitle.textContent =
+            "Verifique sua conexão e tente novamente.";
         }
 
       }
     );
 
-}
 
+    /* ==================================================
+       ADICIONAR MÚSICA AO FIRESTORE
+    ================================================== */
 
+    async function addMusic() {
 
-function onPlayerReady() {
+      const link =
+        document.getElementById(
+          "musicLink"
+        ).value.trim();
 
-  playerReady = true;
+      const name =
+        document.getElementById(
+          "musicName"
+        ).value.trim();
 
-  renderPlaylist();
+      const message =
+        document.getElementById(
+          "musicMessage"
+        ).value.trim();
 
-  updateMusicBar();
+      const errorBox =
+        document.getElementById(
+          "modalError"
+        );
 
-}
+      const saveButton =
+        document.querySelector(
+          ".save-music-button"
+        );
 
+      errorBox.textContent = "";
 
 
-function onPlayerStateChange(
-  event
-) {
+      const videoId =
+        extractYouTubeVideoId(
+          link
+        );
 
-  if (
-    event.data ===
-    YT.PlayerState.PLAYING
-  ) {
 
-    musicButton.textContent =
-      "❚❚";
+      if (
+        !videoId
+      ) {
 
-    musicWaves.classList.add(
-      "playing"
-    );
+        errorBox.textContent =
+          "Cole um link válido do YouTube ou YouTube Music ❤️";
 
-    musicBar.classList.add(
-      "playing"
-    );
+        return;
 
-  }
+      }
 
 
-  else if (
-    event.data ===
-    YT.PlayerState.PAUSED
-  ) {
+      /*
+        Evita adicionar exatamente o mesmo vídeo
+        duas vezes por engano.
+      */
 
-    setPausedInterface();
+      const alreadyExists =
+        playlist.some(
+          track =>
+            track.videoId ===
+            videoId
+        );
 
-  }
 
+      if (
+        alreadyExists
+      ) {
 
-  else if (
-    event.data ===
-    YT.PlayerState.ENDED
-  ) {
+        errorBox.textContent =
+          "Essa música já está na nossa playlist ❤️";
 
-    nextTrack(true);
+        return;
 
-  }
+      }
 
-}
 
+      try {
 
+        if (
+          saveButton
+        ) {
+          saveButton.disabled =
+            true;
 
-function onPlayerError(
-  event
-) {
+          saveButton.textContent =
+            "Salvando... ❤️";
+        }
 
-  console.error(
-    "Erro do YouTube:",
-    event.data
-  );
 
-  musicTitle.textContent =
-    "Essa música não pôde ser reproduzida 🥺";
+        await addDoc(
+          collection(
+            db,
+            "playlist"
+          ),
+          {
+            videoId:
+              videoId,
 
-}
+            link:
+              link,
 
+            name:
+              name ||
+              "Nossa música ❤️",
 
+            addedBy:
+              selectedPerson,
 
-/* =====================================================
-   PLAY / PAUSE
-===================================================== */
+            message:
+              message,
 
-function toggleMusic() {
+            createdAt:
+              serverTimestamp()
+          }
+        );
 
-  if (
-    !playerReady ||
-    !playlist.length
-  ) {
 
-    openAddMusicModal();
+        clearMusicForm();
 
-    return;
+        closeAddMusicModal();
 
-  }
+      }
 
+      catch (
+        firestoreError
+      ) {
 
-  const state =
-    player.getPlayerState();
+        console.error(
+          "Erro ao salvar música:",
+          firestoreError
+        );
 
+        if (
+          firestoreError?.code ===
+          "permission-denied"
+        ) {
+          errorBox.textContent =
+            "O Firestore bloqueou a gravação. Verifique as regras ❤️";
+        }
 
-  if (
-    state ===
-    YT.PlayerState.PLAYING
-  ) {
+        else {
+          errorBox.textContent =
+            "Não consegui salvar essa música. Tente novamente ❤️";
+        }
 
-    player.pauseVideo();
+      }
 
-  }
+      finally {
 
-  else {
+        if (
+          saveButton
+        ) {
+          saveButton.disabled =
+            false;
 
-    player.playVideo();
+          saveButton.textContent =
+            "Adicionar à nossa playlist ❤️";
+        }
 
-  }
-
-}
-
-
-
-function setPausedInterface() {
-
-  musicButton.textContent =
-    "▶";
-
-  musicWaves.classList.remove(
-    "playing"
-  );
-
-  musicBar.classList.remove(
-    "playing"
-  );
-
-}
-
-
-
-/* =====================================================
-   MÚSICA ANTERIOR
-===================================================== */
-
-function previousTrack() {
-
-  if (
-    playlist.length === 0
-  ) {
-
-    return;
-
-  }
-
-
-  currentIndex--;
-
-  if (
-    currentIndex < 0
-  ) {
-
-    currentIndex =
-      playlist.length - 1;
-
-  }
-
-
-  loadCurrentTrack(true);
-
-}
-
-
-
-/* =====================================================
-   PRÓXIMA MÚSICA
-===================================================== */
-
-function nextTrack(
-  autoplay = true
-) {
-
-  if (
-    playlist.length === 0
-  ) {
-
-    return;
-
-  }
-
-
-  currentIndex++;
-
-  if (
-    currentIndex >=
-    playlist.length
-  ) {
-
-    currentIndex = 0;
-
-  }
-
-
-  loadCurrentTrack(
-    autoplay
-  );
-
-}
-
-
-
-/* =====================================================
-   CARREGAR MÚSICA
-===================================================== */
-
-function loadCurrentTrack(
-  autoplay = false
-) {
-
-  if (
-    !playlist.length
-  ) {
-
-    updateMusicBar();
-
-    return;
-
-  }
-
-
-  const track =
-    playlist[
-      currentIndex
-    ];
-
-
-  if (
-    playerReady &&
-    player
-  ) {
-
-    if (
-      autoplay
-    ) {
-
-      player.loadVideoById(
-        track.videoId
-      );
-
-    }
-
-    else {
-
-      player.cueVideoById(
-        track.videoId
-      );
-
-    }
-
-  }
-
-
-  updateMusicBar();
-
-  renderPlaylist();
-
-}
-
-
-
-/* =====================================================
-   ATUALIZA A BARRA
-===================================================== */
-
-function updateMusicBar() {
-
-  if (
-    playlist.length === 0
-  ) {
-
-    musicTitle.textContent =
-      "Adicione nossa primeira música ❤️";
-
-    musicSubtitle.textContent =
-      "Uma trilha sonora para a nossa história";
-
-    musicButton.textContent =
-      "+";
-
-    return;
-
-  }
-
-
-  const track =
-    playlist[
-      currentIndex
-    ];
-
-
-  musicTitle.textContent =
-    track.name;
-
-
-  musicSubtitle.textContent =
-    "Adicionada por "
-    +
-    track.addedBy
-    +
-    " ❤️";
-
-
-  if (
-    playerReady &&
-    player &&
-    player.getPlayerState() !==
-      YT.PlayerState.PLAYING
-  ) {
-
-    musicButton.textContent =
-      "▶";
-
-  }
-
-}
-
-
-
-/* =====================================================
-   ABRIR / FECHAR PLAYLIST
-===================================================== */
-
-function togglePlaylistPanel() {
-
-  playlistPanel.classList.toggle(
-    "open"
-  );
-
-}
-
-
-
-/* =====================================================
-   MODAL
-===================================================== */
-
-function openAddMusicModal() {
-
-  musicModal.classList.add(
-    "open"
-  );
-
-
-  document.getElementById(
-    "musicLink"
-  ).focus();
-
-}
-
-
-
-function closeAddMusicModal() {
-
-  musicModal.classList.remove(
-    "open"
-  );
-
-
-  document.getElementById(
-    "modalError"
-  ).textContent = "";
-
-}
-
-
-
-/* =====================================================
-   QUEM ADICIONOU
-===================================================== */
-
-function selectPerson(
-  button
-) {
-
-  selectedPerson =
-    button.dataset.person;
-
-
-  document
-    .querySelectorAll(
-      ".person-button"
-    )
-    .forEach(
-      item =>
-        item.classList.remove(
-          "active"
-        )
-    );
-
-
-  button.classList.add(
-    "active"
-  );
-
-}
-
-
-
-/* =====================================================
-   EXTRAIR ID DO YOUTUBE
-===================================================== */
-
-function extractYouTubeVideoId(
-  link
-) {
-
-  try {
-
-    const url =
-      new URL(
-        link.trim()
-      );
-
-
-    /*
-      youtu.be/VIDEO
-    */
-
-    if (
-      url.hostname.includes(
-        "youtu.be"
-      )
-    ) {
-
-      return url.pathname
-        .replace("/", "")
-        .split("?")[0];
+      }
 
     }
 
 
-    /*
-      youtube.com/watch?v=VIDEO
-      music.youtube.com/watch?v=VIDEO
-    */
-
-    const videoParameter =
-      url.searchParams.get(
-        "v"
-      );
-
-
-    if (
-      videoParameter
-    ) {
-
-      return videoParameter;
-
-    }
-
-
-    /*
-      youtube.com/shorts/VIDEO
-      youtube.com/embed/VIDEO
-    */
-
-    const parts =
-      url.pathname
-        .split("/")
-        .filter(Boolean);
-
-
-    if (
-      parts[0] ===
-        "shorts"
-      ||
-      parts[0] ===
-        "embed"
-    ) {
-
-      return parts[1];
-
-    }
-
-
-    return null;
-
-  }
-
-  catch {
-
-    return null;
-
-  }
-
-}
-
-
-
-/* =====================================================
-   ADICIONAR MÚSICA
-===================================================== */
-
-function addMusic() {
-
-  const link =
-    document.getElementById(
-      "musicLink"
-    ).value.trim();
-
-
-  const name =
-    document.getElementById(
-      "musicName"
-    ).value.trim();
-
-
-  const message =
-    document.getElementById(
-      "musicMessage"
-    ).value.trim();
-
-
-  const error =
-    document.getElementById(
-      "modalError"
-    );
-
-
-  error.textContent = "";
-
-
-  const videoId =
-    extractYouTubeVideoId(
-      link
-    );
-
-
-  if (
-    !videoId
-  ) {
-
-    error.textContent =
-      "Cole um link válido do YouTube ou YouTube Music ❤️";
-
-    return;
-
-  }
-
-
-  const newTrack = {
-
-    id:
-      Date.now()
-      +
-      "-"
-      +
-      Math.random()
-        .toString(36)
-        .slice(2),
-
-    videoId:
-      videoId,
-
-    link:
-      link,
-
-    name:
-      name ||
-      "Nossa música ❤️",
-
-    addedBy:
-      selectedPerson,
-
-    message:
-      message,
-
-    createdAt:
-      Date.now()
-
-  };
-
-
-  const wasEmpty =
-    playlist.length === 0;
-
-
-  playlist.push(
-    newTrack
-  );
-
-
-  savePlaylist();
-
-
-  if (
-    wasEmpty
-  ) {
-
-    currentIndex = 0;
-
-    loadCurrentTrack(
-      false
-    );
-
-  }
-
-
-  renderPlaylist();
-
-  updateMusicBar();
-
-
-  clearMusicForm();
-
-  closeAddMusicModal();
-
-}
-
-
-
-/* =====================================================
-   LIMPAR FORMULÁRIO
-===================================================== */
-
-function clearMusicForm() {
-
-  document.getElementById(
-    "musicLink"
-  ).value = "";
-
-
-  document.getElementById(
-    "musicName"
-  ).value = "";
-
-
-  document.getElementById(
-    "musicMessage"
-  ).value = "";
-
-}
-
-
-
-/* =====================================================
-   SALVAR LOCALMENTE
-===================================================== */
-
-function savePlaylist() {
-
-  localStorage.setItem(
-    STORAGE_KEY,
-    JSON.stringify(
-      playlist
-    )
-  );
-
-}
-
-
-
-/* =====================================================
-   EXIBIR LISTA
-===================================================== */
-
-function renderPlaylist() {
-
-  playlistList.innerHTML =
-    "";
-
-
-  if (
-    playlist.length === 0
-  ) {
-
-    playlistList.innerHTML =
-      `
-        <div class="playlist-empty">
-          Nossa playlist ainda está vazia.<br>
-          Que tal escolher a primeira? ❤️
-        </div>
-      `;
-
-    return;
-
-  }
-
-
-  playlist.forEach(
-    (
-      track,
+    /* ==================================================
+       EXCLUIR MÚSICA DO FIRESTORE
+    ================================================== */
+
+    async function deleteTrack(
       index
-    ) => {
+    ) {
 
-      const item =
-        document.createElement(
-          "div"
+      const track =
+        playlist[
+          index
+        ];
+
+
+      if (
+        !track
+      ) {
+        return;
+      }
+
+
+      try {
+
+        await deleteDoc(
+          doc(
+            db,
+            "playlist",
+            track.id
+          )
+        );
+
+      }
+
+      catch (
+        error
+      ) {
+
+        console.error(
+          "Erro ao excluir música:",
+          error
+        );
+
+        alert(
+          "Não consegui excluir essa música agora 🥺"
+        );
+
+      }
+
+    }
+
+
+    /* ==================================================
+       QUEM ESTÁ ADICIONANDO
+    ================================================== */
+
+    function selectPerson(
+      button
+    ) {
+
+      selectedPerson =
+        button.dataset.person;
+
+
+      document
+        .querySelectorAll(
+          ".person-button"
+        )
+        .forEach(
+          item =>
+            item.classList.remove(
+              "active"
+            )
         );
 
 
-      item.className =
-        "playlist-item"
-        +
+      button.classList.add(
+        "active"
+      );
+
+    }
+
+
+    /* ==================================================
+       EXTRAIR ID DO YOUTUBE / YOUTUBE MUSIC
+    ================================================== */
+
+    function extractYouTubeVideoId(
+      link
+    ) {
+
+      try {
+
+        const url =
+          new URL(
+            link.trim()
+          );
+
+
+        if (
+          url.hostname.includes(
+            "youtu.be"
+          )
+        ) {
+
+          return url.pathname
+            .replace(
+              "/",
+              ""
+            )
+            .split(
+              "?"
+            )[0];
+
+        }
+
+
+        const videoParameter =
+          url.searchParams.get(
+            "v"
+          );
+
+
+        if (
+          videoParameter
+        ) {
+          return videoParameter;
+        }
+
+
+        const parts =
+          url.pathname
+            .split("/")
+            .filter(Boolean);
+
+
+        if (
+          (
+            parts[0] ===
+              "shorts"
+            ||
+            parts[0] ===
+              "embed"
+          )
+          &&
+          parts[1]
+        ) {
+
+          return parts[1];
+
+        }
+
+
+        return null;
+
+      }
+
+      catch {
+
+        return null;
+
+      }
+
+    }
+
+
+    /* ==================================================
+       MODAL
+    ================================================== */
+
+    function openAddMusicModal() {
+
+      musicModal.classList.add(
+        "open"
+      );
+
+
+      setTimeout(
+        () => {
+
+          document
+            .getElementById(
+              "musicLink"
+            )
+            .focus();
+
+        },
+        180
+      );
+
+    }
+
+
+    function closeAddMusicModal() {
+
+      musicModal.classList.remove(
+        "open"
+      );
+
+
+      document.getElementById(
+        "modalError"
+      ).textContent = "";
+
+    }
+
+
+    function clearMusicForm() {
+
+      document.getElementById(
+        "musicLink"
+      ).value = "";
+
+      document.getElementById(
+        "musicName"
+      ).value = "";
+
+      document.getElementById(
+        "musicMessage"
+      ).value = "";
+
+    }
+
+
+    /* ==================================================
+       ABRIR / FECHAR PLAYLIST
+    ================================================== */
+
+    function togglePlaylistPanel() {
+
+      playlistPanel.classList.toggle(
+        "open"
+      );
+
+    }
+
+
+    /* ==================================================
+       EXIBIR LISTA
+    ================================================== */
+
+    function renderPlaylist() {
+
+      playlistList.innerHTML =
+        "";
+
+
+      if (
+        playlist.length === 0
+      ) {
+
+        playlistList.innerHTML =
+          `
+            <div class="playlist-empty">
+              Nossa playlist ainda está vazia.<br>
+              Que tal escolher a primeira? ❤️
+            </div>
+          `;
+
+        return;
+
+      }
+
+
+      playlist.forEach(
         (
-          index ===
-          currentIndex
-          ?
-          " active"
-          :
-          ""
-        );
+          track,
+          index
+        ) => {
+
+          const item =
+            document.createElement(
+              "div"
+            );
 
 
-      item.innerHTML =
-        `
-          <div class="playlist-number">
-            ${
+          item.className =
+            "playlist-item"
+            +
+            (
               index ===
               currentIndex
               ?
-              "♫"
+              " active"
               :
-              String(
-                index + 1
-              ).padStart(
-                2,
-                "0"
-              )
+              ""
+            );
+
+
+          item.innerHTML =
+            `
+              <div class="playlist-number">
+                ${
+                  index ===
+                  currentIndex
+                  ?
+                  "♫"
+                  :
+                  String(
+                    index + 1
+                  ).padStart(
+                    2,
+                    "0"
+                  )
+                }
+              </div>
+
+              <div class="playlist-item-info">
+
+                <strong>
+                  ${escapeHtml(track.name)}
+                </strong>
+
+                <span>
+                  ${escapeHtml(track.addedBy)} ❤️
+                </span>
+
+              </div>
+
+              <button
+                class="delete-track"
+                title="Excluir"
+                aria-label="Excluir ${escapeHtml(track.name)}"
+              >
+                ×
+              </button>
+            `;
+
+
+          item.addEventListener(
+            "click",
+            () => {
+
+              selectTrack(
+                index
+              );
+
             }
-          </div>
-
-          <div class="playlist-item-info">
-
-            <strong>
-              ${escapeHtml(track.name)}
-            </strong>
-
-            <span>
-              ${
-                escapeHtml(
-                  track.addedBy
-                )
-              } ❤️
-            </span>
-
-          </div>
-
-          <button
-            class="delete-track"
-            title="Excluir"
-          >
-            ×
-          </button>
-        `;
+          );
 
 
-      item.addEventListener(
-        "click",
-        () => {
+          item
+            .querySelector(
+              ".delete-track"
+            )
+            .addEventListener(
+              "click",
+              event => {
 
-          selectTrack(
-            index
+                event.stopPropagation();
+
+                deleteTrack(
+                  index
+                );
+
+              }
+            );
+
+
+          playlistList.appendChild(
+            item
           );
 
         }
       );
 
+    }
 
-      item
-        .querySelector(
-          ".delete-track"
+
+    /* ==================================================
+       ATUALIZAR A BARRA
+    ================================================== */
+
+    function updateMusicBar() {
+
+      if (
+        playlist.length === 0
+      ) {
+
+        musicTitle.textContent =
+          "Adicione nossa primeira música ❤️";
+
+        musicSubtitle.textContent =
+          "Uma trilha sonora para a nossa história";
+
+        musicButton.textContent =
+          "+";
+
+        musicButton.setAttribute(
+          "aria-label",
+          "Adicionar música"
+        );
+
+        return;
+
+      }
+
+
+      const track =
+        playlist[
+          currentIndex
+        ];
+
+
+      musicTitle.textContent =
+        track?.name ||
+        "Nossa música ❤️";
+
+
+      musicSubtitle.textContent =
+        "Adicionada por "
+        +
+        (
+          track?.addedBy ||
+          "nós"
         )
-        .addEventListener(
-          "click",
-          event => {
+        +
+        " ❤️";
 
-            event.stopPropagation();
 
-            deleteTrack(
-              index
-            );
+      if (
+        playerReady &&
+        player &&
+        player.getPlayerState() !==
+          YT.PlayerState.PLAYING
+      ) {
+
+        musicButton.textContent =
+          "▶";
+
+        musicButton.setAttribute(
+          "aria-label",
+          "Tocar música"
+        );
+
+      }
+
+    }
+
+
+    /* ==================================================
+       SELECIONAR MÚSICA
+    ================================================== */
+
+    function selectTrack(
+      index
+    ) {
+
+      if (
+        !playlist[
+          index
+        ]
+      ) {
+        return;
+      }
+
+
+      currentIndex =
+        index;
+
+
+      loadCurrentTrack(
+        true
+      );
+
+    }
+
+
+    /* ==================================================
+       YOUTUBE API
+    ================================================== */
+
+    function createYouTubePlayer() {
+
+      if (
+        player ||
+        !window.YT ||
+        !window.YT.Player
+      ) {
+        return;
+      }
+
+
+      player =
+        new YT.Player(
+          "youtubePlayer",
+          {
+
+            width:
+              200,
+
+            height:
+              200,
+
+            playerVars: {
+              playsinline:
+                1,
+
+              controls:
+                0
+            },
+
+            events: {
+
+              onReady:
+                onPlayerReady,
+
+              onStateChange:
+                onPlayerStateChange,
+
+              onError:
+                onPlayerError
+
+            }
 
           }
         );
 
-
-      playlistList.appendChild(
-        item
-      );
-
     }
-  );
-
-}
 
 
-
-/* =====================================================
-   SELECIONAR MÚSICA
-===================================================== */
-
-function selectTrack(
-  index
-) {
-
-  currentIndex =
-    index;
+    window.onYouTubeIframeAPIReady =
+      createYouTubePlayer;
 
 
-  loadCurrentTrack(
-    true
-  );
-
-}
-
-
-
-/* =====================================================
-   EXCLUIR MÚSICA
-===================================================== */
-
-function deleteTrack(
-  index
-) {
-
-  playlist.splice(
-    index,
-    1
-  );
-
-
-  if (
-    currentIndex >=
-    playlist.length
-  ) {
-
-    currentIndex =
-      Math.max(
-        0,
-        playlist.length - 1
-      );
-
-  }
-
-
-  savePlaylist();
-
-  renderPlaylist();
-
-
-  if (
-    playlist.length
-  ) {
-
-    loadCurrentTrack(
-      false
-    );
-
-  }
-
-  else {
+    /*
+      Se a API já tiver terminado de carregar
+      antes deste módulo, cria o player imediatamente.
+    */
 
     if (
-      playerReady &&
-      player
+      window.YT &&
+      window.YT.Player
     ) {
+      createYouTubePlayer();
+    }
 
-      player.stopVideo();
+
+    function onPlayerReady() {
+
+      playerReady =
+        true;
+
+
+      if (
+        playlist.length
+      ) {
+
+        const track =
+          playlist[
+            currentIndex
+          ];
+
+
+        if (
+          track
+        ) {
+
+          player.cueVideoById(
+            track.videoId
+          );
+
+          loadedVideoId =
+            track.videoId;
+
+        }
+
+      }
+
+
+      renderPlaylist();
+
+      updateMusicBar();
 
     }
 
 
-    setPausedInterface();
+    function onPlayerStateChange(
+      event
+    ) {
+
+      if (
+        event.data ===
+        YT.PlayerState.PLAYING
+      ) {
+
+        musicButton.textContent =
+          "❚❚";
+
+        musicButton.setAttribute(
+          "aria-label",
+          "Pausar música"
+        );
+
+        musicWaves.classList.add(
+          "playing"
+        );
+
+        musicBar.classList.add(
+          "playing"
+        );
+
+      }
+
+
+      else if (
+        event.data ===
+        YT.PlayerState.PAUSED
+      ) {
+
+        setPausedInterface();
+
+      }
+
+
+      else if (
+        event.data ===
+        YT.PlayerState.ENDED
+      ) {
+
+        nextTrack(
+          true
+        );
+
+      }
+
+    }
+
+
+    function onPlayerError(
+      event
+    ) {
+
+      console.error(
+        "Erro do YouTube:",
+        event.data
+      );
+
+      musicTitle.textContent =
+        "Essa música não pôde ser reproduzida 🥺";
+
+      setPausedInterface();
+
+    }
+
+
+    /* ==================================================
+       PLAY / PAUSE
+    ================================================== */
+
+    function toggleMusic() {
+
+      if (
+        playlist.length === 0
+      ) {
+
+        openAddMusicModal();
+
+        return;
+
+      }
+
+
+      if (
+        !playerReady ||
+        !player
+      ) {
+
+        musicSubtitle.textContent =
+          "Carregando o player... ❤️";
+
+        return;
+
+      }
+
+
+      const track =
+        playlist[
+          currentIndex
+        ];
+
+
+      if (
+        track &&
+        loadedVideoId !==
+          track.videoId
+      ) {
+
+        player.cueVideoById(
+          track.videoId
+        );
+
+        loadedVideoId =
+          track.videoId;
+
+      }
+
+
+      const state =
+        player.getPlayerState();
+
+
+      if (
+        state ===
+        YT.PlayerState.PLAYING
+      ) {
+
+        player.pauseVideo();
+
+      }
+
+      else {
+
+        player.playVideo();
+
+      }
+
+    }
+
+
+    function setPausedInterface() {
+
+      if (
+        playlist.length
+      ) {
+        musicButton.textContent =
+          "▶";
+
+        musicButton.setAttribute(
+          "aria-label",
+          "Tocar música"
+        );
+      }
+
+      musicWaves.classList.remove(
+        "playing"
+      );
+
+      musicBar.classList.remove(
+        "playing"
+      );
+
+    }
+
+
+    /* ==================================================
+       MÚSICA ANTERIOR
+    ================================================== */
+
+    function previousTrack() {
+
+      if (
+        playlist.length === 0
+      ) {
+        return;
+      }
+
+
+      currentIndex--;
+
+
+      if (
+        currentIndex < 0
+      ) {
+
+        currentIndex =
+          playlist.length - 1;
+
+      }
+
+
+      loadCurrentTrack(
+        true
+      );
+
+    }
+
+
+    /* ==================================================
+       PRÓXIMA MÚSICA
+    ================================================== */
+
+    function nextTrack(
+      autoplay = true
+    ) {
+
+      if (
+        playlist.length === 0
+      ) {
+        return;
+      }
+
+
+      currentIndex++;
+
+
+      if (
+        currentIndex >=
+        playlist.length
+      ) {
+
+        currentIndex =
+          0;
+
+      }
+
+
+      loadCurrentTrack(
+        autoplay
+      );
+
+    }
+
+
+    /* ==================================================
+       CARREGAR MÚSICA
+    ================================================== */
+
+    function loadCurrentTrack(
+      autoplay = false
+    ) {
+
+      if (
+        !playlist.length
+      ) {
+
+        updateMusicBar();
+
+        return;
+
+      }
+
+
+      const track =
+        playlist[
+          currentIndex
+        ];
+
+
+      updateMusicBar();
+
+      renderPlaylist();
+
+
+      if (
+        !playerReady ||
+        !player ||
+        !track
+      ) {
+        return;
+      }
+
+
+      if (
+        autoplay
+      ) {
+
+        player.loadVideoById(
+          track.videoId
+        );
+
+      }
+
+      else {
+
+        player.cueVideoById(
+          track.videoId
+        );
+
+      }
+
+
+      loadedVideoId =
+        track.videoId;
+
+    }
+
+
+    /* ==================================================
+       SEGURANÇA DOS TEXTOS
+    ================================================== */
+
+    function escapeHtml(
+      text = ""
+    ) {
+
+      const div =
+        document.createElement(
+          "div"
+        );
+
+
+      div.textContent =
+        String(
+          text
+        );
+
+
+      return div.innerHTML;
+
+    }
+
+
+    /* ==================================================
+       DISPONIBILIZA AS FUNÇÕES USADAS EM onclick=""
+       Como este script é type="module", precisamos
+       expor explicitamente essas funções no window.
+    ================================================== */
+
+    window.comecar =
+      comecar;
+
+    window.addMusic =
+      addMusic;
+
+    window.deleteTrack =
+      deleteTrack;
+
+    window.selectPerson =
+      selectPerson;
+
+    window.openAddMusicModal =
+      openAddMusicModal;
+
+    window.closeAddMusicModal =
+      closeAddMusicModal;
+
+    window.togglePlaylistPanel =
+      togglePlaylistPanel;
+
+    window.toggleMusic =
+      toggleMusic;
+
+    window.previousTrack =
+      previousTrack;
+
+    window.nextTrack =
+      nextTrack;
+
+
+    /* PRIMEIRO DESENHO DA INTERFACE */
+
+    renderPlaylist();
 
     updateMusicBar();
-
-  }
-
-}
-
-
-
-/* =====================================================
-   SEGURANÇA DO TEXTO
-===================================================== */
-
-function escapeHtml(
-  text
-) {
-
-  const div =
-    document.createElement(
-      "div"
-    );
-
-
-  div.textContent =
-    text;
-
-
-  return div.innerHTML;
-
-}
-
-
-
-/* =====================================================
-   INICIALIZA
-===================================================== */
-
-renderPlaylist();
-
-updateMusicBar();
 
   </script>
 
